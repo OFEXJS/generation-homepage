@@ -1,0 +1,42 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- 可切换背景：白色或深空黑 -->
+  <rect width="128" height="128" fill="#0a0e1a"/>   <!-- 深色背景 -->
+  <!-- <rect width="128" height="128" fill="#ffffff"/> --> <!-- 亮色背景（只需取消注释） -->
+
+  <g transform="translate(64,64)">
+    
+    <!-- 主 X：极粗 + 发光描边 -->
+    <path d="M-28,-28 L-10,-10 M-28,28 L-10,10 M28,-28 L10,-10 M28,28 L10,10
+             M-10,-10 L-4,-4 M-10,10 L-4,4 M10,-10 L4,-4 M10,10 L4,4
+             M-4,-4 L4,4 M-4,4 L4,-4"
+          stroke="#00ffff" stroke-width="9" stroke-linecap="round" fill="none">
+      <animate attributeName="stroke-width" values="8;11;8" dur="4s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- 内层细线 X（形成网格感） -->
+    <path d="M-38,-38 L38,38 M38,-38 L-38,38" 
+          stroke="#00ffff" stroke-width="1.5" opacity="0.6"/>
+    
+    <!-- 环绕 X 的8个能量节点（像电子云一样绕 X 呼吸） -->
+    <g fill="#00ffff">
+      <circle r="4"><animateTransform attributeName="transform" type="translate" values="0,-48; 34,-34; 48,0; 34,34; 0,48; -34,34; -48,0; -34,-34; 0,-48" dur="6s" repeatCount="indefinite"/></circle>
+      <circle r="3.5" opacity="0.7"><animateTransform attributeName="transform" type="translate" values="0,-48; 34,-34; 48,0; 34,34; 0,48; -34,34; -48,0; -34,-34; 0,-48" dur="6s" begin="0.75s" repeatCount="indefinite"/></circle>
+    </g>
+    
+    <!-- X 中心发出脉冲光环 -->
+    <circle r="5" fill="#ffffff" opacity="0.9">
+      <animate attributeName="r" values="5; 20; 45; 5" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="1; 0.6; 0; 1" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="5" fill="#00ffff" opacity="0.8">
+      <animate attributeName="r" values="5; 25; 50; 5" dur="3s" begin="0.3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8; 0.4; 0; 0.8" dur="3s" begin="0.3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- 最外层极细呼吸光环 -->
+    <circle r="58" fill="none" stroke="#00ffff" stroke-width="1" opacity="0.3">
+      <animate attributeName="r" values="56;62;56" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
