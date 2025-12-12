@@ -52,6 +52,47 @@ const works = [
   },
 ];
 
+// 文章数据（测试数据）
+const articles = [
+  {
+    id: 1,
+    title: "React 性能优化实战指南",
+    excerpt: "探索React应用性能优化的各种技巧和最佳实践...",
+    date: "2024-01-15",
+    category: "前端开发",
+    readTime: "8 分钟",
+    url: "#article1",
+  },
+  {
+    id: 2,
+    title: "TypeScript 高级类型系统详解",
+    excerpt: "深入理解TypeScript的类型系统，掌握泛型、条件类型等高级特性...",
+    date: "2023-12-28",
+    category: "编程语言",
+    readTime: "12 分钟",
+    url: "#article2",
+  },
+  {
+    id: 3,
+    title: "现代CSS架构：从原子化到BEM",
+    excerpt: "对比分析不同的CSS架构方法论，找到最适合你的项目风格...",
+    date: "2023-11-10",
+    category: "CSS",
+    readTime: "6 分钟",
+    url: "#article3",
+  },
+  {
+    id: 4,
+    title: "WebAssembly 性能突破：从理论到实践",
+    excerpt:
+      "学习如何使用WebAssembly提升Web应用性能，实现接近原生的执行速度...",
+    date: "2023-10-22",
+    category: "WebAssembly",
+    readTime: "15 分钟",
+    url: "#article4",
+  },
+];
+
 const App: React.FC = () => {
   const starsContainerRef = useRef<HTMLDivElement>(null);
 
@@ -90,7 +131,7 @@ const App: React.FC = () => {
   return (
     <div className="app">
       {/* 毛玻璃英雄区 */}
-      <header className="hero" style={{ position: 'relative' }}>
+      <header className="hero" style={{ position: "relative" }}>
         <div ref={starsContainerRef} className="stars-container" />
         <div className="avatar-wrapper">
           <img src={me.avatar} alt={me.name} className="avatar" />
@@ -169,6 +210,33 @@ const App: React.FC = () => {
           </a>
         ))}
       </main>
+
+      {/* 文章列表 */}
+      <section className="articles-section">
+        <h2 className="section-title">最新文章</h2>
+        <div className="articles-list">
+          {articles.map((article) => (
+            <a
+              key={article.id}
+              href={article.url}
+              className="article-item"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="article-content">
+                <h3 className="article-title">{article.title}</h3>
+                <p className="article-excerpt">{article.excerpt}</p>
+                <div className="article-meta">
+                  <span className="article-date">{article.date}</span>
+                  <span className="article-category">{article.category}</span>
+                  <span className="article-readtime">{article.readTime}</span>
+                </div>
+              </div>
+              <div className="article-arrow">→</div>
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
