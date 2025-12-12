@@ -74,9 +74,32 @@ type articlesItem = {
 // 文章数据（测试数据）
 const articles = [] as articlesItem[];
 
+type instanceItem = {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  url: string;
+  icon?: string;
+  status: 'online' | 'offline' | 'development';
+}
+// 实例数据（测试数据）
+const instances = [
+  {
+    id: 1,
+    title: '代码在线编辑器',
+    description: '支持 Javascript、Python 实时代码编辑和运行',
+    tags: ['Javascript', 'Python', 'Node.js'],
+    url: 'https://zhengjialux.github.io/CodePlayground/index.html',
+    icon: '/icons/JPCodePlayground.svg',
+    status: 'online' as const
+  },
+] as instanceItem[];
+
 const App: React.FC = () => {
   const starsContainerRef = useRef<HTMLDivElement>(null);
   const [isArticlesCollapsed, setIsArticlesCollapsed] = React.useState(false);
+  const [isInstancesDrawerOpen, setIsInstancesDrawerOpen] = React.useState(false);
 
   useEffect(() => {
     const container = starsContainerRef.current;
@@ -112,6 +135,61 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
+      {/* 左侧实例抽屉 */}
+      <aside className={`instances-drawer ${isInstancesDrawerOpen ? 'open' : 'closed'}`}>
+        <div className="drawer-header">
+          <button 
+            className="drawer-toggle"
+            onClick={() => setIsInstancesDrawerOpen(!isInstancesDrawerOpen)}
+            aria-label={isInstancesDrawerOpen ? "关闭实例列表" : "打开实例列表"}
+          >
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+              {isInstancesDrawerOpen ? (
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+              ) : (
+                <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
+              )}
+            </svg>
+          </button>
+          <h2 className={`drawer-title ${isInstancesDrawerOpen ? '' : 'hidden'}`}>实例列表</h2>
+        </div>
+        <div className={`instances-content ${isInstancesDrawerOpen ? 'open' : 'closed'}`}>
+          <div className="instances-list">
+            {instances.map((instance) => (
+              <a
+                key={instance.id}
+                href={instance.url}
+                className="instance-card"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="instance-header">
+                  {instance.icon && (
+                    <img
+                      src={instance.icon}
+                      alt={instance.title}
+                      className="instance-icon"
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  )}
+                  <h3 className="instance-title">{instance.title}</h3>
+                  <span className={`instance-status ${instance.status}`}>
+                    {instance.status === 'online' ? '在线' : 
+                     instance.status === 'offline' ? '离线' : '开发中'}
+                  </span>
+                </div>
+                <p className="instance-description">{instance.description}</p>
+                <div className="instance-tags">
+                  {instance.tags.map((tag, index) => (
+                    <span key={index} className="tag">{tag}</span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </aside>
+
       {/* 毛玻璃英雄区 */}
       <header className="hero" style={{ position: "relative" }}>
         <div ref={starsContainerRef} className="stars-container" />
