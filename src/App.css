@@ -1,0 +1,204 @@
+/* App.css - 2025 最火风格：新拟物 + 玻璃拟态 + 超强层次 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0a0a1a;
+  color: #e0e0ff;
+  min-height: 100vh;
+}
+
+.app {
+  padding: 60px 20px 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 英雄区 */
+.hero {
+  text-align: center;
+  margin-bottom: 100px;
+  position: relative;
+  padding: 60px 30px;
+  border-radius: 32px;
+  background: rgba(20, 20, 40, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(100, 100, 255, 0.2);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    inset 0 0 80px rgba(100, 100, 255, 0.05);
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid rgba(100, 100, 255, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120, 120, 255, 0.4), transparent 70%);
+  filter: blur(20px);
+  z-index: -1;
+}
+
+.name {
+  font-size: 4.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+  letter-spacing: -2px;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: #a78bfa;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.bio {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+  background: rgba(100, 100, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(150, 150, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-10px) scale(1.1);
+  background: rgba(120, 120, 255, 0.4);
+  box-shadow: 0 20px 30px rgba(120, 120, 255, 0.3);
+}
+
+/* 作品网格 */
+.works {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.work-card {
+  aspect-ratio: 4 / 3;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  background: #161622;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+}
+
+.work-card:hover {
+  transform: translateY(-20px) scale(1.02);
+  box-shadow: 0 40px 80px rgba(120, 120, 255, 0.25);
+}
+
+.github-mark {
+  width: 120px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px;
+  background: linear-gradient(to top, rgba(10, 10, 30, 0.95), transparent);
+  transform: translateY(30px);
+  transition: all 0.4s ease;
+}
+
+.work-card:hover .card-content {
+  transform: translateY(0);
+  background: linear-gradient(to top, rgba(10, 10, 30, 0.98), transparent);
+}
+
+.card-content h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.card-content p {
+  font-size: 1.1rem;
+  color: #b0b0ff;
+  margin-bottom: 16px;
+}
+
+.link-hint {
+  font-size: 1rem;
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.glass-tag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .name { font-size: 3rem; }
+  .works { grid-template-columns: 1fr; gap: 24px; }
+  .work-card { aspect-ratio: 5 / 4; }
+  .hero { padding: 40px 20px; margin-bottom: 60px; }
+}
