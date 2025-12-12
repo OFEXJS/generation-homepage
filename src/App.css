@@ -183,19 +183,109 @@ body {
   top: 50px;
   right: 50px;
   bottom: 50px;
-  width: 400px;
+  width: 420px;
   max-width: 90vw;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 30px;
+  border-radius: 20px;
+  padding: 28px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   z-index: 10;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+/* 折叠状态 */
+.articles-section.collapsed {
+  width: 56px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.articles-section.collapsed:hover {
+  width: 60px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* 文章列表头部 */
+.articles-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.articles-section.collapsed .articles-header {
+  margin-bottom: 0;
+  justify-content: center;
+}
+
+/* 切换按钮 */
+.toggle-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  flex-shrink: 0;
+}
+
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.toggle-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.toggle-icon.collapsed {
+  transform: rotate(180deg);
+}
+
+.toggle-icon svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.8;
+}
+
+.articles-section.collapsed .toggle-icon svg {
+  width: 10px;
+  height: 10px;
+}
+
+.section-title.hidden {
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+  position: absolute;
+}
+
+.articles-section.collapsed .section-title:not(.hidden) {
+  display: none;
 }
 
 .articles-section:hover {
@@ -207,7 +297,6 @@ body {
   font-size: 24px;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 24px;
   text-align: center;
   position: relative;
   padding-bottom: 12px;
@@ -230,34 +319,55 @@ body {
   flex-direction: column;
   gap: 16px;
   flex: 1;
+  overflow: hidden;
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: calc(100vh - 140px);
+  will-change: opacity, transform;
+  contain: layout style paint;
+}
+
+.articles-list.collapsed {
+  opacity: 0;
+  transform: translateX(-20px) scale(0.95);
+  pointer-events: none;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+/* 滚动容器 */
+.articles-list-scroll {
   overflow-y: auto;
   padding-right: 8px;
   margin-right: -8px;
+  height: 100%;
+  contain: layout style paint;
 }
 
 /* 自定义滚动条样式 */
-.articles-list::-webkit-scrollbar {
+.articles-list-scroll::-webkit-scrollbar {
   width: 6px;
 }
 
-.articles-list::-webkit-scrollbar-track {
+.articles-list-scroll::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 3px;
   margin: 8px 0;
 }
 
-.articles-list::-webkit-scrollbar-thumb {
+.articles-list-scroll::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #6366f1, #8b5cf6);
   border-radius: 3px;
   transition: background 0.3s ease;
 }
 
-.articles-list::-webkit-scrollbar-thumb:hover {
+.articles-list-scroll::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #4f46e5, #7c3aed);
 }
 
 /* Firefox滚动条样式 */
-.articles-list {
+.articles-list-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgba(99, 102, 241, 0.7) rgba(255, 255, 255, 0.05);
 }
@@ -274,6 +384,7 @@ body {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+    margin-bottom: 24px;
 }
 
 .article-item::before {
@@ -348,6 +459,66 @@ body {
   opacity: 0.7;
 }
 
+/* 无文章状态 */
+.no-articles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 40px;
+  color: rgba(255, 255, 255, 0.6);
+  min-height: 300px;
+  position: relative;
+}
+
+.no-articles::before {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.05), transparent 70%);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+.no-articles-icon {
+  margin-bottom: 20px;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+.no-articles:hover .no-articles-icon {
+  opacity: 0.6;
+  transform: scale(1.05);
+}
+
+.no-articles-icon svg {
+  width: 64px;
+  height: 64px;
+  stroke: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  border-radius: 50%;
+  padding: 16px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.no-articles-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.no-articles-content p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
 /* 响应式设计 */
 @media (max-width: 1200px) {
   .articles-section {
@@ -360,6 +531,13 @@ body {
     margin: 0;
     max-width: none;
   }
+  
+  .articles-section.collapsed {
+    width: 56px;
+    left: auto;
+    right: 30px;
+    padding: 12px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -369,6 +547,13 @@ body {
     right: 20px;
     bottom: 20px;
     left: 20px;
+  }
+  
+  .articles-section.collapsed {
+    width: 48px;
+    padding: 10px;
+    left: auto;
+    right: 20px;
   }
   
   .section-title {
@@ -393,6 +578,40 @@ body {
   
   .articles-list::-webkit-scrollbar {
     width: 4px;
+  }
+  
+  .toggle-btn {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .toggle-icon svg {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .articles-section.collapsed .toggle-icon svg {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .no-articles {
+    padding: 40px 20px;
+    min-height: 200px;
+  }
+  
+  .no-articles-icon svg {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+  }
+  
+  .no-articles-content h3 {
+    font-size: 16px;
+  }
+  
+  .no-articles-content p {
+    font-size: 13px;
   }
 }
 

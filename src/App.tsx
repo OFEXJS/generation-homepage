@@ -62,49 +62,21 @@ const works = [
   },
 ];
 
+type articlesItem = {
+  id: number;
+  title: string;
+  excerpt: string;
+  date: string;
+  category: string;
+  readTime: string;
+  url: string;
+}
 // 文章数据（测试数据）
-const articles = [
-  {
-    id: 1,
-    title: "React 性能优化实战指南",
-    excerpt: "探索React应用性能优化的各种技巧和最佳实践...",
-    date: "2024-01-15",
-    category: "前端开发",
-    readTime: "8 分钟",
-    url: "#article1",
-  },
-  {
-    id: 2,
-    title: "TypeScript 高级类型系统详解",
-    excerpt: "深入理解TypeScript的类型系统，掌握泛型、条件类型等高级特性...",
-    date: "2023-12-28",
-    category: "编程语言",
-    readTime: "12 分钟",
-    url: "#article2",
-  },
-  {
-    id: 3,
-    title: "现代CSS架构：从原子化到BEM",
-    excerpt: "对比分析不同的CSS架构方法论，找到最适合你的项目风格...",
-    date: "2023-11-10",
-    category: "CSS",
-    readTime: "6 分钟",
-    url: "#article3",
-  },
-  {
-    id: 4,
-    title: "WebAssembly 性能突破：从理论到实践",
-    excerpt:
-      "学习如何使用WebAssembly提升Web应用性能，实现接近原生的执行速度...",
-    date: "2023-10-22",
-    category: "WebAssembly",
-    readTime: "15 分钟",
-    url: "#article4",
-  },
-];
+const articles = [] as articlesItem[];
 
 const App: React.FC = () => {
   const starsContainerRef = useRef<HTMLDivElement>(null);
+  const [isArticlesCollapsed, setIsArticlesCollapsed] = React.useState(false);
 
   useEffect(() => {
     const container = starsContainerRef.current;
@@ -154,7 +126,7 @@ const App: React.FC = () => {
 
         <div className="social">
           {me.links.map((link) => (
-            <span className={`icon icon-${link.name}`}>
+            <span className={`icon icon-${link.name}`} key={link.name}>
               <a
                 key={link.name}
                 href={link.url}
@@ -222,29 +194,58 @@ const App: React.FC = () => {
       </main>
 
       {/* 文章列表 */}
-      <section className="articles-section">
-        <h2 className="section-title">最新文章</h2>
-        <div className="articles-list">
-          {articles.map((article) => (
-            <a
-              key={article.id}
-              href={article.url}
-              className="article-item"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="article-content">
-                <h3 className="article-title">{article.title}</h3>
-                <p className="article-excerpt">{article.excerpt}</p>
-                <div className="article-meta">
-                  <span className="article-date">{article.date}</span>
-                  <span className="article-category">{article.category}</span>
-                  <span className="article-readtime">{article.readTime}</span>
+      <section className={`articles-section ${isArticlesCollapsed ? 'collapsed' : ''}`}>
+        <div className="articles-header">
+          <button 
+            className="toggle-btn"
+            onClick={() => setIsArticlesCollapsed(!isArticlesCollapsed)}
+            aria-label={isArticlesCollapsed ? "展开文章列表" : "收起文章列表"}
+            title={isArticlesCollapsed ? "展开文章列表" : "收起文章列表"}
+          >
+            <span className={`toggle-icon ${isArticlesCollapsed ? 'collapsed' : ''}`}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+              </svg>
+            </span>
+          </button>
+          <h2 className={`section-title ${isArticlesCollapsed ? 'hidden' : ''}`}>最新文章</h2>
+        </div>
+        <div className={`articles-list ${isArticlesCollapsed ? 'collapsed' : ''}`}>
+          <div className="articles-list-scroll">
+            {articles.length ? articles.map((article) => (
+              <a
+                key={article.id}
+                href={article.url}
+                className="article-item"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="article-content">
+                  <h3 className="article-title">{article.title}</h3>
+                  <p className="article-excerpt">{article.excerpt}</p>
+                  <div className="article-meta">
+                    <span className="article-date">{article.date}</span>
+                    <span className="article-category">{article.category}</span>
+                    <span className="article-readtime">{article.readTime}</span>
+                  </div>
+                </div>
+                <div className="article-arrow">→</div>
+              </a>
+            )): (
+              <div className="no-articles">
+                <div className="no-articles-icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                  </svg>
+                </div>
+                <div className="no-articles-content">
+                  <h3>暂无文章</h3>
+                  <p>精彩内容正在路上，敬请期待...</p>
                 </div>
               </div>
-              <div className="article-arrow">→</div>
-            </a>
-          ))}
+            )}
+          </div>
         </div>
       </section>
     </div>
