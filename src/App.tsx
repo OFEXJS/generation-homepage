@@ -1,5 +1,5 @@
 // App.tsx（直接替换之前的）
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./App.css";
 
 const me = {
@@ -53,10 +53,45 @@ const works = [
 ];
 
 const App: React.FC = () => {
+  const starsContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = starsContainerRef.current;
+    if (!container) return;
+
+    // 清空容器
+    container.innerHTML = "";
+
+    // 生成星星
+    const starCount = 50;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+
+      // 随机属性
+      const size = Math.random() * 2 + 1; // 1-3px
+      const left = Math.random() * 100; // 0-100%
+      const top = Math.random() * 100; // 0-100%
+      const duration = Math.random() * 3 + 2; // 2-5s
+      const opacity = Math.random() * 0.5 + 0.3; // 0.3-0.8
+
+      // 设置样式
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${left}%`;
+      star.style.top = `${top}%`;
+      star.style.setProperty("--duration", `${duration}s`);
+      star.style.setProperty("--opacity", `${opacity}`);
+
+      container.appendChild(star);
+    }
+  }, []);
+
   return (
     <div className="app">
       {/* 毛玻璃英雄区 */}
-      <header className="hero">
+      <header className="hero" style={{ position: 'relative' }}>
+        <div ref={starsContainerRef} className="stars-container" />
         <div className="avatar-wrapper">
           <img src={me.avatar} alt={me.name} className="avatar" />
           <div className="avatar-glow" />

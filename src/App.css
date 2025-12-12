@@ -40,6 +40,7 @@ body {
   position: relative;
   display: inline-block;
   margin-bottom: 30px;
+  overflow: visible;
 }
 
 .avatar {
@@ -49,6 +50,9 @@ body {
   object-fit: cover;
   border: 6px solid rgba(100, 100, 255, 0.4);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
+  animation: pulse 4s ease-in-out infinite;
 }
 
 .avatar-glow {
@@ -58,6 +62,119 @@ body {
   background: radial-gradient(circle, rgba(120, 120, 255, 0.4), transparent 70%);
   filter: blur(20px);
   z-index: -1;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* 外环旋转光环 */
+.avatar-ring {
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, transparent, rgba(120, 120, 255, 0.6), transparent);
+  animation: rotate 15s linear infinite;
+  filter: blur(15px);
+  z-index: -2;
+}
+
+/* 脉冲粒子效果 */
+.avatar-particles {
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.avatar-particles::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background: radial-gradient(circle at 50% 50%, 
+    transparent 50%, 
+    rgba(167, 139, 250, 0.3) 55%, 
+    transparent 60%);
+  animation: particleBurst 8s ease-in-out infinite;
+}
+
+/* 动画定义 */
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 0 0 rgba(167, 139, 250, 0.4);
+  }
+  50% {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 0 15px rgba(167, 139, 250, 0);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+@keyframes particleBurst {
+  0%, 100% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* 星星效果容器 */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* 星星样式 */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration) infinite ease-in-out;
+  opacity: var(--opacity, 0.5);
+}
+
+/* 星星闪烁动画 */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: var(--opacity, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    opacity: calc(var(--opacity, 0.5) * 1.5);
+    transform: scale(1.2);
+  }
 }
 
 .name {
