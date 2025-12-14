@@ -132,7 +132,7 @@ const instances = [
     url: '',
     winDownloadUrl: 'https://github.com/OFEXJS/FundTabelTools/releases/download/v1.0.0/fundtabeltools-Setup.exe',
     macDownloadUrl: 'https://github.com/OFEXJS/FundTabelTools/releases/download/v1.0.0/fundtabeltools-mac-x64.zip',
-    icon: '/icons/ExampleGalleryTV.svg',
+    icon: '/icons/FundTabelTools.svg',
     status: 'application' as const
   },
 ] as instanceItem[];
