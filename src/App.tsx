@@ -81,7 +81,9 @@ type instanceItem = {
   tags: string[];
   url: string;
   icon?: string;
-  status: 'online' | 'offline' | 'development' | 'updated' | 'upcoming';
+  status: 'online' | 'offline' | 'development' | 'updated' | 'upcoming' | 'application';
+  winDownloadUrl?: string;
+  macDownloadUrl?: string;
 }
 // 状态标签映射
 const instanceStatusMap = {
@@ -89,7 +91,8 @@ const instanceStatusMap = {
   'offline': '离线', 
   'development': '开发中',
   'updated': '持续更新中',
-  'upcoming': '即将推出'
+  'upcoming': '即将推出',
+  'application': 'App'
 };
 
 // 实例数据（测试数据）
@@ -120,6 +123,17 @@ const instances = [
     url: 'https://zhengjialux.github.io/Entry/ExampleGalleryTV/index.html',
     icon: '/icons/ExampleGalleryTV.svg',
     status: 'updated' as const
+  },
+  {
+    id: 4,
+    title: '报表可视化分析工具',
+    description: '交互式数据报表可视化分析工具',
+    tags: ['数据可视化', '报表', '分析', '图表'],
+    url: '',
+    winDownloadUrl: 'https://github.com/OFEXJS/FundTabelTools/releases/download/v1.0.0/fundtabeltools-Setup.exe',
+    macDownloadUrl: 'https://github.com/OFEXJS/FundTabelTools/releases/download/v1.0.0/fundtabeltools-mac-x64.zip',
+    icon: '/icons/ExampleGalleryTV.svg',
+    status: 'application' as const
   },
 ] as instanceItem[];
 
@@ -183,34 +197,101 @@ const App: React.FC = () => {
         <div className={`instances-content ${isInstancesDrawerOpen ? 'open' : 'closed'}`}>
           <div className="instances-list">
             {instances.map((instance) => (
-              <a
-                key={instance.id}
-                href={instance.url}
-                className="instance-card"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="instance-header">
-                  {instance.icon && (
-                    <img
-                      src={instance.icon}
-                      alt={instance.title}
-                      className="instance-icon"
-                      style={{ width: "20px", height: "20px" }}
-                    />
-                  )}
-                  <h3 className="instance-title">{instance.title}</h3>
-                  <span className={`instance-status ${instance.status}`}>
-                    {instanceStatusMap[instance.status]}
-                  </span>
+              instance.status === 'application' ? (
+                <div key={instance.id} className="instance-card application-card">
+                  <div className="instance-header">
+                    {instance.icon && (
+                      <img
+                        src={instance.icon}
+                        alt={instance.title}
+                        className="instance-icon"
+                        style={{ width: "20px", height: "20px" }}
+                      />
+                    )}
+                    <h3 className="instance-title">{instance.title}</h3>
+                    <span className={`instance-status ${instance.status}`}>
+                      {instanceStatusMap[instance.status]}
+                    </span>
+                  </div>
+                  <p className="instance-description">{instance.description}</p>
+                  <div className="instance-tags">
+                    {instance.tags.map((tag, index) => (
+                      <span key={index} className="tag">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="application-actions">
+                    {(instance.url || instance.winDownloadUrl || instance.macDownloadUrl) && (
+                      <div className="download-buttons">
+                        {instance.url && (
+                          <button 
+                            className="download-btn primary"
+                            onClick={() => window.open(instance.url, '_blank')}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                            通用下载
+                          </button>
+                        )}
+                        {instance.winDownloadUrl && (
+                          <button 
+                            className="download-btn windows"
+                            onClick={() => window.open(instance.winDownloadUrl, '_blank')}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                            Windows
+                          </button>
+                        )}
+                        {instance.macDownloadUrl && (
+                          <button 
+                            className="download-btn macos"
+                            onClick={() => window.open(instance.macDownloadUrl, '_blank')}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                            macOS
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <p className="instance-description">{instance.description}</p>
-                <div className="instance-tags">
-                  {instance.tags.map((tag, index) => (
-                    <span key={index} className="tag">{tag}</span>
-                  ))}
-                </div>
-              </a>
+              ) : instance.url ? (
+                <a
+                  key={instance.id}
+                  href={instance.url}
+                  className="instance-card"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="instance-header">
+                    {instance.icon && (
+                      <img
+                        src={instance.icon}
+                        alt={instance.title}
+                        className="instance-icon"
+                        style={{ width: "20px", height: "20px" }}
+                      />
+                    )}
+                    <h3 className="instance-title">{instance.title}</h3>
+                    <span className={`instance-status ${instance.status}`}>
+                      {instanceStatusMap[instance.status]}
+                    </span>
+                  </div>
+                  <p className="instance-description">{instance.description}</p>
+                  <div className="instance-tags">
+                    {instance.tags.map((tag, index) => (
+                      <span key={index} className="tag">{tag}</span>
+                    ))}
+                  </div>
+                </a>
+              ) : null
             ))}
           </div>
         </div>
