@@ -3,65 +3,16 @@ import "./App.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"; // 支持表格、删除线等 GFM 特性
 
-const me = {
-  name: "Will/ZX",
-  title: "全栈开发者 · 独立创作者",
-  bio: "把疯狂的想法写成代码，把代码变成现实",
-  avatar: "https://avatars.githubusercontent.com/u/20078022?v=4",
-  links: [
-    {
-      name: "GitHub",
-      url: "https://github.com/zhengjialux",
-      icon: "/icons/Github.svg",
-    },
-    {
-      name: "Twitter",
-      url: "https://twitter.com/kunsile16",
-      icon: "/icons/Twitter.svg",
-    },
-    {
-      name: "Email",
-      url: "mailto:zhengjialu8507@gmail.com",
-      icon: "/icons/Gmail.svg",
-    },
-  ],
+const me = config?.me || {};
+
+type worksItem = {
+  title: string;
+  desc: string;
+  url: string;
+  icon?: string;
 };
 
-const works = [
-  {
-    title: "JPCodePlayground",
-    desc: "代码在线调试。支持 JavaScript And Python",
-    url: "https://github.com/OFEXJS/JPCodePlayground.git",
-    icon: "JPCodePlayground.svg",
-  },
-  {
-    title: "FundTabelTools",
-    desc: "简单的报表统计可视化工具",
-    url: "https://github.com/OFEXJS/FundTabelTools.git",
-    icon: "FundTabelTools.svg",
-  },
-  {
-    title: "dailyUI",
-    desc: "日常开箱即用的UI组件",
-    url: "https://github.com/OFEXJS/dailyUI.git",
-  },
-  {
-    title: "Utility",
-    desc: "日常使用的工具方法集合",
-    url: "https://github.com/OFEXJS/Utility.git",
-    cover: "",
-  },
-  {
-    title: "lineage-datahub",
-    desc: "抽离开源项目 DataHub 的血缘交互组件",
-    url: "https://github.com/IDEADEMOX/lineage-datahub.git",
-  },
-  {
-    title: "data-lineage-ui",
-    desc: "抽离开源项目 open-mate-data 的数据血缘呈现组件",
-    url: "https://github.com/IDEADEMOX/data-lineage-ui.git",
-  },
-];
+const works: worksItem[] = config?.works || [];
 
 type ArticleItem = {
   id: number;
@@ -74,27 +25,7 @@ type ArticleItem = {
 };
 
 // 文章数据（新增测试数据，url 指向 Markdown 文件）
-const articles: ArticleItem[] = [
-  {
-    id: 1,
-    title: "React 组件库最佳实践",
-    excerpt:
-      "探索如何构建高效、可复用的 React UI 组件库，包括 Typescript 支持和主题化。",
-    date: "2025-12-01",
-    category: "前端开发",
-    readTime: "8 min",
-    url: "/blog/Test.md", // 示例 Markdown 文件
-  },
-  {
-    id: 2,
-    title: "Python 数据可视化指南",
-    excerpt: "使用 Matplotlib 和 Seaborn 构建交互式数据可视化图表的完整教程。",
-    date: "2025-11-15",
-    category: "数据科学",
-    readTime: "12 min",
-    url: "/blog/Test.md", // 示例 Markdown 文件
-  },
-];
+const articles: ArticleItem[] = config?.articles || [];
 
 type InstanceItem = {
   id: number;
@@ -124,49 +55,8 @@ const instanceStatusMap = {
   application: "App",
 };
 
-// 实例数据（测试数据）
-const instances = [
-  {
-    id: 1,
-    title: "代码在线编辑器",
-    description: "支持 Javascript、Python 实时代码编辑和运行",
-    tags: ["Javascript", "Python", "Node.js"],
-    url: "https://zhengjialux.github.io/Entry/CodePlayground/index.html",
-    icon: "/icons/JPCodePlayground.svg",
-    status: "online" as const,
-  },
-  {
-    id: 2,
-    title: "React 组件库",
-    description: "展示各种可复用React UI组件示例",
-    tags: ["React", "组件", "UI", "Typescript"],
-    url: "https://zhengjialux.github.io/Entry/ExampleGalleryTR/index.html",
-    icon: "/icons/ExampleGalleryTR.svg",
-    status: "updated" as const,
-  },
-  {
-    id: 3,
-    title: "Vue 组件库",
-    description: "展示各种可复用Vue UI组件示例",
-    tags: ["Vue", "组件", "UI", "Typescript"],
-    url: "https://zhengjialux.github.io/Entry/ExampleGalleryTV/index.html",
-    icon: "/icons/ExampleGalleryTV.svg",
-    status: "updated" as const,
-  },
-  {
-    id: 4,
-    title: "报表可视化分析工具",
-    description: "交互式数据报表可视化分析工具",
-    tags: ["数据可视化", "报表", "分析", "图表"],
-    url: "",
-    winDownloadUrl:
-      "https://github.com/OFEXJS/FundTabelTools/releases/download/v1.0.0/fundtabeltools-Setup.exe",
-    macDownloadUrl:
-      "https://github.com/OFEXJS/FundTabelTools/releases/download/v1.0.0/fundtabeltools-mac-x64.zip",
-    icon: "/icons/FundTabelTools.svg",
-    status: "application" as const,
-  },
-] as InstanceItem[];
+// 实例数据
+const instances: InstanceItem[] = config?.instances || [];
 
 const App: React.FC = () => {
   const starsContainerRef = useRef<HTMLDivElement>(null);

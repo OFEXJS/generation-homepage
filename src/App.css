@@ -1178,7 +1178,7 @@ body {
   right: 0;
   padding: 32px;
   background: linear-gradient(to top, rgba(10, 10, 30, 0.95), transparent);
-  transform: translateY(30px);
+  transform: translateY(20px);
   transition: all 0.4s ease;
 }
 
