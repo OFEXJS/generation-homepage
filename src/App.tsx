@@ -2,48 +2,19 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"; // 支持表格、删除线等 GFM 特性
+import {
+  type worksItem,
+  type ArticleItem,
+  type InstanceItem,
+  type linksItem,
+} from "./App.d";
 
 const me = config?.me || {};
 
-type worksItem = {
-  title: string;
-  desc: string;
-  url: string;
-  icon?: string;
-};
-
 const works: worksItem[] = config?.works || [];
-
-type ArticleItem = {
-  id: number;
-  title: string;
-  excerpt: string;
-  date: string;
-  category: string;
-  readTime: string;
-  url: string; // Markdown 文件的 URL，例如："/articles/article1.md" 或远程 URL
-};
 
 // 文章数据（新增测试数据，url 指向 Markdown 文件）
 const articles: ArticleItem[] = config?.articles || [];
-
-type InstanceItem = {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  url: string;
-  icon?: string;
-  status:
-    | "online"
-    | "offline"
-    | "development"
-    | "updated"
-    | "upcoming"
-    | "application";
-  winDownloadUrl?: string;
-  macDownloadUrl?: string;
-};
 
 // 状态标签映射
 const instanceStatusMap = {
@@ -373,7 +344,7 @@ const App: React.FC = () => {
         <p className="bio">{me.bio}</p>
 
         <div className="social">
-          {me.links.map((link) => (
+          {me?.links?.map((link: linksItem) => (
             <span className={`icon icon-${link.name}`} key={link.name}>
               <a
                 key={link.name}
