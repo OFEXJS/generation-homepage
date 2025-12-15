@@ -155,7 +155,7 @@ button:focus-visible {
   line-height: 1.8;
   font-size: 16px;
   color: #e5e7eb;
-  min-height: 200px;  
+  min-height: 55vh;  
   /* Firefox 支持 */
   scrollbar-width: thin;
   scrollbar-color: rgba(120, 120, 255, 0.6) rgba(20, 20, 40, 0.6);
