@@ -14,7 +14,7 @@ const me = config?.me || {};
 const works: worksItem[] = config?.works || [];
 
 // 文章数据（新增测试数据，url 指向 Markdown 文件）
-const articles: ArticleItem[] = config?.articles || [];
+const articles: ArticleItem[] = config?.articles.reverse() || [];
 
 // 状态标签映射
 const instanceStatusMap = {
