@@ -72,6 +72,15 @@ const config = {
     },
     {
       id: 2,
+      title: "密钥百宝箱",
+      description: "对密钥进行加解密，以及格式转换",
+      tags: ["工具", "加密", "解密", "格式转换"],
+      url: "/Entry/KeyPreview/",
+      icon: "/icons/KeyPreview.svg",
+      status: "online",
+    },
+    {
+      id: 3,
       title: "React 组件库",
       description: "展示各种可复用React UI组件示例",
       tags: ["React", "组件", "UI", "Typescript"],
@@ -80,7 +89,7 @@ const config = {
       status: "updated",
     },
     {
-      id: 3,
+      id: 4,
       title: "Vue 组件库",
       description: "展示各种可复用Vue UI组件示例",
       tags: ["Vue", "组件", "UI", "Typescript"],
@@ -89,7 +98,7 @@ const config = {
       status: "updated",
     },
     {
-      id: 4,
+      id: 5,
       title: "报表可视化分析工具",
       description: "交互式数据报表可视化分析工具",
       tags: ["数据可视化", "报表", "分析", "图表"],
