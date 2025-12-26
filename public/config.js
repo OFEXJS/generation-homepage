@@ -125,7 +125,7 @@ const config = {
     {
       id: 1,
       title: "Never give up",
-      excerpt: "不抛弃心中的梦想，不放弃脚下的坚持，不退缩于眼前的困难。",
+      excerpt: "Adhere to the law of quantitative and qualitative changes.",
       date: "2025-12-22",
       category: "励志",
       readTime: "20:15",
