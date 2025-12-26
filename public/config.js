@@ -3,7 +3,7 @@ const config = {
   me: {
     name: "Will/ZX",
     title: "全栈开发者 · 独立创作者",
-    bio: "把疯狂的想法写成代码，把代码变成现实",
+    bio: "把想法写成代码，用代码方便现实",
     avatar: "https://avatars.githubusercontent.com/u/20078022?v=4",
     links: [
       {
