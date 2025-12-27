@@ -108,6 +108,15 @@ const config = {
     },
     {
       id: 6,
+      title: "色彩面板",
+      description: "颜色选择器，颜色值转换功能",
+      tags: ["工具", "转换", "色彩取值"],
+      url: "/Entry/ColorPanel/",
+      icon: "/icons/ColorPanel.png",
+      status: "online",
+    },
+    {
+      id: 7,
       title: "报表可视化分析工具",
       description: "交互式数据报表可视化分析工具",
       tags: ["数据可视化", "报表", "分析", "图表"],
