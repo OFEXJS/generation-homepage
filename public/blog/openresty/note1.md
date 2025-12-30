@@ -27,7 +27,7 @@ openresty 的核心：
 直接从 openresty 官网下载安装包即可。
 [openresty 官网下载](https://openresty.org/cn/download.html)
 
-!['download'](./images/img1.png)
+!['download'](/blog/openresty/images/img1.png)
 
 ### 安装 openresty（Windows 为例）
 
@@ -66,7 +66,7 @@ $ set PATH=%PATH%;D:\openresty
 
 直接在 Windows 中，也可以在环境变量中添加 `D:\openresty`。
 
-![setPath](./images/img2.png)
+![setPath](/blog/openresty/images/img2.png)
 
 #### 命令行
 

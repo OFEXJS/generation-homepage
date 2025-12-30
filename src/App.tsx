@@ -2,6 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"; // 支持表格、删除线等 GFM 特性
+
+import rehypeRaw from "rehype-raw"; // 支持原始 HTML
+import rehypeSlug from "rehype-slug"; // 为标题添加 ID
+import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 为标题添加锚点链接
 import {
   type worksItem,
   type ArticleItem,
@@ -565,7 +569,19 @@ const App: React.FC = () => {
               {isLoading ? (
                 <div className="loading-spinner">加载中...</div>
               ) : (
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <ReactMarkdown 
+                  remarkPlugins={[remarkGfm]} 
+                  rehypePlugins={[
+                    rehypeRaw,
+                    rehypeSlug,
+                    [rehypeAutolinkHeadings, {
+                      behavior: "wrap",
+                      properties: {
+                        className: "heading-link"
+                      }
+                    }]
+                  ]}
+                >
                   {markdownContent}
                 </ReactMarkdown>
               )}
