@@ -149,5 +149,14 @@ const config = {
       readTime: "22:44",
       url: "/blog/backend/note1.md",
     },
+    {
+      id: 3,
+      title: "openresty 安装",
+      excerpt: "搭建 openresty 开发环境。",
+      date: "2025-12-30",
+      category: "openresty",
+      readTime: "14:16",
+      url: "/blog/openresty/note1.md",
+    },
   ],
 };
