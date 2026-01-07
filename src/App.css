@@ -665,7 +665,7 @@ body {
   top: 50px;
   right: 50px;
   bottom: 50px;
-  width: 420px;
+  width: 500px;
   max-width: 90vw;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -706,6 +706,18 @@ body {
 .articles-section.collapsed .articles-header {
   margin-bottom: 0;
   justify-content: center;
+}
+
+/* 确保收起状态下切换按钮始终可见 */
+.articles-section.collapsed .toggle-btn {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  z-index: 100;
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 !important;
 }
 
 /* 切换按钮 */
@@ -800,6 +812,61 @@ body {
   height: 3px;
   background: linear-gradient(90deg, #6366f1, #8b5cf6);
   border-radius: 3px;
+}
+
+/* 文章筛选区域 */
+.articles-filters {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 折叠状态下的筛选区域 */
+.articles-filters.collapsed {
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* 筛选选择框 */
+.filter-select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+  min-width: 100px;
+}
+
+.filter-select:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.filter-select option {
+  background: #1f2937;
+  color: #ffffff;
+  border: none;
+}
+
+.filter-select option:hover {
+  background: #374151;
 }
 
 .articles-list {

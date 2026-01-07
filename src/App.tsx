@@ -18,7 +18,7 @@ const me = config?.me || {};
 const works: worksItem[] = config?.works || [];
 
 // 文章数据（新增测试数据，url 指向 Markdown 文件）
-const articles: ArticleItem[] = config?.articles.reverse() || [];
+const articles: ArticleItem[] = config?.articles || [];
 
 // 状态标签映射
 const instanceStatusMap = {
@@ -42,6 +42,10 @@ const App: React.FC = () => {
   );
   const [markdownContent, setMarkdownContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  
+  // 文章筛选和排序状态
+  const [selectedCategory, setSelectedCategory] = useState<string>("全部");
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
 
   // 计算当前文章的上一章和下一章（用于预览标题）
   const currentIndex = selectedArticle
@@ -49,8 +53,41 @@ const App: React.FC = () => {
     : -1;
 
   const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
-  const nextArticle =
-    currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
+  const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
+  
+  // 获取所有分类
+  const categories = ["全部", ...Array.from(new Set(articles.map(article => article.category)))];
+  
+  // 将 readTime (HH:MM) 转换为总分钟数以便比较
+  const convertReadTimeToMinutes = (readTime: string): number => {
+    const [hours, minutes] = readTime.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  // 过滤和排序文章列表
+  const filteredAndSortedArticles = React.useMemo(() => {
+    // 筛选
+    let result = articles;
+    if (selectedCategory !== "全部") {
+      result = result.filter(article => article.category === selectedCategory);
+    }
+    
+    // 排序
+    return [...result].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      const timeDiff = dateB.getTime() - dateA.getTime();
+      
+      // 如果日期相同，则根据 readTime 排序
+      if (timeDiff === 0) {
+        const readTimeA = convertReadTimeToMinutes(a.readTime);
+        const readTimeB = convertReadTimeToMinutes(b.readTime);
+        return sortOrder === "desc" ? readTimeB - readTimeA : readTimeA - readTimeB;
+      }
+      
+      return sortOrder === "desc" ? timeDiff : -timeDiff;
+    });
+  }, [articles, selectedCategory, sortOrder]);
 
   useEffect(() => {
     const container = starsContainerRef.current;
@@ -428,9 +465,7 @@ const App: React.FC = () => {
             title={isArticlesCollapsed ? "展开文章列表" : "收起文章列表"}
           >
             <span
-              className={`toggle-icon ${
-                isArticlesCollapsed ? "collapsed" : ""
-              }`}
+              className={`toggle-icon ${isArticlesCollapsed ? "collapsed" : ""}`}
             >
               <svg
                 width="16"
@@ -447,13 +482,37 @@ const App: React.FC = () => {
           >
             最新文章
           </h2>
+          <div className={`articles-filters ${isArticlesCollapsed ? "collapsed" : ""}`}>
+            {/* 分类筛选 */}
+            <select
+              className="filter-select"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            
+            {/* 排序选择 */}
+            <select
+              className="filter-select"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as "desc" | "asc")}
+            >
+              <option value="desc">最新优先</option>
+              <option value="asc">最早优先</option>
+            </select>
+          </div>
         </div>
         <div
           className={`articles-list ${isArticlesCollapsed ? "collapsed" : ""}`}
         >
           <div className="articles-list-scroll">
-            {articles.length ? (
-              articles.map((article) => (
+            {filteredAndSortedArticles.length ? (
+              filteredAndSortedArticles.map((article) => (
                 <div
                   key={article.id}
                   onClick={() => openArticle(article)}
