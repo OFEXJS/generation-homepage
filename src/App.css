@@ -814,11 +814,58 @@ body {
   border-radius: 3px;
 }
 
+/* 文章搜索区域 */
+.articles-search {
+  width: 100%;
+  margin-bottom: 20px;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 搜索输入框 */
+.search-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  width: 100%;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* 折叠状态下的搜索区域 */
+.articles-search.collapsed {
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
 /* 文章筛选区域 */
 .articles-filters {
   display: flex;
   gap: 12px;
-  margin-left: auto;
+  margin-left: 12px;
   opacity: 1;
   transform: translateX(0);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);

@@ -46,6 +46,7 @@ const App: React.FC = () => {
   // 文章筛选和排序状态
   const [selectedCategory, setSelectedCategory] = useState<string>("全部");
   const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
 
   // 计算当前文章的上一章和下一章（用于预览标题）
   const currentIndex = selectedArticle
@@ -68,8 +69,18 @@ const App: React.FC = () => {
   const filteredAndSortedArticles = React.useMemo(() => {
     // 筛选
     let result = articles;
+    
+    // 分类筛选
     if (selectedCategory !== "全部") {
       result = result.filter(article => article.category === selectedCategory);
+    }
+    
+    // 搜索关键词筛选
+    if (searchKeyword.trim()) {
+      const keyword = searchKeyword.trim().toLowerCase();
+      result = result.filter(article => 
+        article.title.toLowerCase().includes(keyword)
+      );
     }
     
     // 排序
@@ -87,7 +98,7 @@ const App: React.FC = () => {
       
       return sortOrder === "desc" ? timeDiff : -timeDiff;
     });
-  }, [articles, selectedCategory, sortOrder]);
+  }, [articles, selectedCategory, sortOrder, searchKeyword]);
 
   useEffect(() => {
     const container = starsContainerRef.current;
@@ -511,6 +522,16 @@ const App: React.FC = () => {
           className={`articles-list ${isArticlesCollapsed ? "collapsed" : ""}`}
         >
           <div className="articles-list-scroll">
+            {/* 搜索框 */}
+            <div className={`articles-search ${isArticlesCollapsed ? "collapsed" : ""}`}>
+              <input
+                type="text"
+                className="search-input"
+                placeholder="搜索文章标题..."
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+              />
+            </div>
             {filteredAndSortedArticles.length ? (
               filteredAndSortedArticles.map((article) => (
                 <div
