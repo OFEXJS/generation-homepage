@@ -122,9 +122,9 @@ $ openresty -s stop        # 快速停止
 $ openresty -s quit        # 优雅停止
 $ openresty -s reload      # 重新加载配置
 $ openresty -s reopen      # 重新打开日志文件
-# 指定 openresty 配置文件路径
+# 指定 openresty 配置文件路径，跟 -p 捆绑使用
 $ openresty -c /usr/local/my-service/conf/my.conf
-# 指定 openresty 工作目录
+# 指定 openresty 工作目录，跟 -c 捆绑使用
 $ openresty -p /usr/local/my-service/
 # 设置错误日志文件
 $ openresty -e /usr/local/my-service/logs/error.log
@@ -145,4 +145,5 @@ $ openresty -s stop -p ~/my-service/ -c ~/my-service/conf/my.conf     # 快速�
 $ openresty -s quit -p ~/my-service/ -c ~/my-service/conf/my.conf     # 优雅停止
 $ openresty -s reload -p ~/my-service/ -c ~/my-service/conf/my.conf   # 重新加载配置
 ```
+
 
