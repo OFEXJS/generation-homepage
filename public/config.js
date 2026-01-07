@@ -167,5 +167,14 @@ const config = {
       readTime: "14:16",
       url: "/blog/openresty/note1.md",
     },
+    {
+      id: 4,
+      title: "第一个 openresty 程序",
+      excerpt: "亲手启动一个 openresty 项目。",
+      date: "2026-1-7",
+      category: "openresty",
+      readTime: "15:51",
+      url: "/blog/openresty/note2.md",
+    },
   ],
 };
