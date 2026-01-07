@@ -154,9 +154,9 @@ const config = {
       title: "后端整体架构",
       excerpt: "理解前后端架构，理解从业务请求到返回数据的过程。",
       date: "2025-12-22",
-      category: "后端",
+      category: "node",
       readTime: "22:44",
-      url: "/blog/backend/note1.md",
+      url: "/blog/node/note1.md",
     },
     {
       id: 3,
