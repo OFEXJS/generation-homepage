@@ -521,17 +521,17 @@ const App: React.FC = () => {
         <div
           className={`articles-list ${isArticlesCollapsed ? "collapsed" : ""}`}
         >
+          {/* 搜索框 */}
+          <div className={`articles-search ${isArticlesCollapsed ? "collapsed" : ""}`}>
+            <input
+              type="text"
+              className="search-input"
+              placeholder="搜索文章标题..."
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+            />
+          </div>
           <div className="articles-list-scroll">
-            {/* 搜索框 */}
-            <div className={`articles-search ${isArticlesCollapsed ? "collapsed" : ""}`}>
-              <input
-                type="text"
-                className="search-input"
-                placeholder="搜索文章标题..."
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
-              />
-            </div>
             {filteredAndSortedArticles.length ? (
               filteredAndSortedArticles.map((article) => (
                 <div
