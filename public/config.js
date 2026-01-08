@@ -185,5 +185,14 @@ const config = {
       readTime: "16:51",
       url: "/blog/openresty/note3.md",
     },
+    {
+      id: 6,
+      title: "学习协议栈",
+      excerpt: "对 OSI 模型、TCP/IP 模型有个基本认识。",
+      date: "2026-01-08",
+      category: "node",
+      readTime: "20:37",
+      url: "/blog/node/note2.md",
+    },
   ],
 };
