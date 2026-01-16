@@ -101,6 +101,8 @@ docker-compose 是一个用于定义和运行多容器的工具。它使用 YAML
 
 > 容器环境配置项需要到仓库查看，例如 [openresty/openresty 配置项](https://hub.docker.com/r/openresty/openresty#image-labels)
 
+### docker-compose.yml 例子
+
 ```yaml
 # docker-compose.yml
 services:
@@ -141,12 +143,12 @@ docker-compose logs -f <service_name>
 
 想要构建一个属于自己的镜像，需要在项目根目录新建 Dockerfile 文件（没有文件后缀）。Dockerfile 文件中包含了构建镜像的指令，例如基于哪个镜像、安装依赖、复制文件等。[语法参考](https://docs.docker.com/reference/dockerfile/)
 
-### 例子
+### Dockerfile 例子
 
 ```yml
 FROM openresty/openresty:alpine
 
-RUN mkdir -p /app
+RUN mkdir -p /app/logs
 
 WORKDIR /app/openresty-demo
 
@@ -167,6 +169,17 @@ CMD ["openresty", "-p", "./", "-c", "conf/my.conf", "-g", "daemon off;"]
 docker build -t my-openresty:v1 .
 # 查看本地镜像
 docker images
+```
+
+打包后，就可以当成一个普通的镜像来使用，例如：
+
+```bash
+# 打包后启动容器
+docker run -d -p 6954:6954 --name my-openresty my-openresty:v1
+# 停止容器
+docker stop my-openresty
+# 删除容器
+docker rm my-openresty
 # 删除本地镜像
 docker rmi my-openresty:v1
 ```
