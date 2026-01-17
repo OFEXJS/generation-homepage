@@ -221,5 +221,14 @@ const config = {
       readTime: "16:08",
       url: "/blog/node/note4.md",
     },
+    {
+      id: 10,
+      title: "Node.js 事件循环机制",
+      excerpt: "学习 Node.js 事件循环机制，理解其工作原理",
+      date: "2026-01-17",
+      category: "node",
+      readTime: "23:38",
+      url: "/blog/node/note5.md",
+    },
   ],
 };
