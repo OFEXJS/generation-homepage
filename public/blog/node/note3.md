@@ -1,6 +1,8 @@
 
 ## 状态码 🔥
 
+[MDN 参考](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Reference/Status)
+
 - 1xx：信息性状态码，表示请求已被接受，继续处理。
 
 - 2xx：成功状态码，表示请求已被成功处理。
