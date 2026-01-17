@@ -212,5 +212,14 @@ const config = {
       readTime: "14:22",
       url: "/blog/node/note3.md",
     },
+    {
+      id: 9,
+      title: "初探 Node.js",
+      excerpt: "了解 Node.js 的优势，并且手写第一个 Node 服务。",
+      date: "2026-01-17",
+      category: "node",
+      readTime: "16:08",
+      url: "/blog/node/note4.md",
+    },
   ],
 };
