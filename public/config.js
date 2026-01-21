@@ -230,5 +230,14 @@ const config = {
       readTime: "23:38",
       url: "/blog/node/note5.md",
     },
+    {
+      id: 11,
+      title: "Ubuntu 命令行",
+      excerpt: "快速掌握服务器日常命令行操作",
+      date: "2026-01-21",
+      category: "linux",
+      readTime: "19:24",
+      url: "/blog/linux/note1.md",
+    },
   ],
 };
