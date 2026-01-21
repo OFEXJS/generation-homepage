@@ -239,5 +239,14 @@ const config = {
       readTime: "19:24",
       url: "/blog/linux/note1.md",
     },
+    {
+      id: 12,
+      title: "GIT/SVN 常用命令",
+      excerpt: "日常项目版本管理的命令行参考",
+      date: "2026-01-21",
+      category: "linux",
+      readTime: "20:25",
+      url: "/blog/linux/note2.md",
+    },
   ],
 };
