@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -16,6 +16,7 @@ interface LoaderData {
 const ArticleDetail: React.FC = () => {
   const { article, content } = useLoaderData() as LoaderData;
   const navigate = useNavigate();
+  const [showBackToTop, setShowBackToTop] = useState(false);
   
   // 获取上一篇和下一篇文章
   const { prev, next } = ArticleService.getAdjacentArticles(article.id);
@@ -35,6 +36,28 @@ const ArticleDetail: React.FC = () => {
       navigate(`/article/${next.id}`);
     }
   };
+
+  // 回到顶部函数
+  const handleBackToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // 滚动检测
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="article-detail-page">
@@ -114,6 +137,17 @@ const ArticleDetail: React.FC = () => {
           </ReactMarkdown>
         </div>
       </div>
+
+      {/* 回到顶部按钮 */}
+      {showBackToTop && (
+        <button
+          className="back-to-top"
+          onClick={handleBackToTop}
+          aria-label="回到顶部"
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 };

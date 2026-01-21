@@ -2233,6 +2233,49 @@ body {
   padding-left: 1rem;
 }
 
+/* 回到顶部按钮 */
+.back-to-top {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  width: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.6);
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.9) 0%, rgba(167, 139, 250, 0.9) 100%);
+}
+
+.back-to-top:active {
+  transform: translateY(-4px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 2rem;
+    right: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+  }
+}
+
 .article-body pre code > span::before {
   counter-increment: line;
   content: counter(line);
