@@ -248,5 +248,14 @@ const config = {
       readTime: "20:25",
       url: "/blog/linux/note2.md",
     },
+    {
+      id: 13,
+      title: "Ubuntu 目录结构说明",
+      excerpt: "详细说明 Ubuntu 系统目录结构，供日常开发参考使用",
+      date: "2026-01-22",
+      category: "linux",
+      readTime: "23:07",
+      url: "/blog/linux/note3.md",
+    },
   ],
 };
