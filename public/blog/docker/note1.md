@@ -187,3 +187,7 @@ docker rmi my-openresty:v1
 # .dockerignore 文件
 
 用于指定在构建镜像时要忽略的文件和目录，跟 .gitignore 类似功能，写法一致。
+
+# 容器集群解决方案
+
+[Kubernetes](https://kubernetes.io/)
